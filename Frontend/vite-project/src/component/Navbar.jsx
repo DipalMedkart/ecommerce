@@ -1,12 +1,17 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import "../pages/style/Navbar.css";
 
 const Navbar = () => {
   return (
-    <nav>
-      {/* <Link to="/">Home</Link> */}
-      <Link to="/login">Login</Link>
-      <Link to="/signup">Signup</Link>
+    <nav className="navigation-bar">
+      <div className="navbar-logo">MyAdminPanel</div>
+      <ul className="navbar-links">
+        <li onClick={() => alert("Navigating to Dashboard")}>Dashboard</li>
+        <li onClick={() => alert("Navigating to Users")}>Users</li>
+        <li onClick={() => alert("Navigating to Reports")}>Reports</li>
+        <li onClick={() => alert("Navigating to Settings")}>Settings</li>
+        <li onClick={() => alert("Logging Out")}>Logout</li>
+      </ul>
     </nav>
   );
 };
