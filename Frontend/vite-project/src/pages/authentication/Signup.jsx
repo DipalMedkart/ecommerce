@@ -1,6 +1,7 @@
+import "../style/Signup.css"; 
 import React, { useState } from "react";
-import "../style/Signup.css"; // Import the CSS file
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -18,15 +19,36 @@ const Signup = () => {
       [name]: value,
     }));
   };
+  const handleSubmit = async (e) => {
 
-  const handleSubmit = (e) => {
     e.preventDefault();
     if (formData.password !== formData.confirmPassword) {
       alert("Passwords do not match!");
       return;
     }
     console.log("Signup Data:", formData);
-    // Add your signup logic here (e.g., API call)
+    
+
+    try {
+      
+      const response = await axios.post("http://localhost:5000/signup", {
+        name: formData.name,
+        email: formData.email,
+        password: formData.password,
+      });
+
+      // redirect to login page
+      setMessage("Signup successful! Redirecting to login...");
+      setTimeout(() => navigate("/login"), 2000); 
+    } catch (error) {
+      // console.error(error);
+      // this is for error handling 
+      if (error.response && error.response.data.message) {
+        setMessage(error.response.data.message);
+      } else {
+        setMessage("An error occurred. Please try again.");
+      }
+    }
   };
 
   return (
