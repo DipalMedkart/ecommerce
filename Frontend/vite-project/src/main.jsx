@@ -17,6 +17,7 @@ import Signup from "./pages/authentication/Signup";
 import Home from "./pages/public/Home"; 
 import AdminPage from "./pages/public/AdminPage";
 import Navbar from "./component/Navbar";
+import AddProduct from "./pages/product-operation/AddProduct";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -28,6 +29,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/signup" element={<Signup />} />
         <Route path="/admin" element={<AdminPage />} />
         <Route path="/navbar" element={<Navbar />} />
+        <Route path="/admin/addproduct" element={<AddProduct/>} />
       </Routes>
     </Router>
   </React.StrictMode>

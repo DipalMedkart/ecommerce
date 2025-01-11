@@ -1,0 +1,116 @@
+/* Main container for AddProduct page */
+.add-product-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 30px auto;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.add-product-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 28px;
+  color: #343a40;
+}
+
+/* Styling for form and its elements */
+.add-product-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.add-product-form label {
+  font-weight: bold;
+  font-size: 16px;
+  color: #495057;
+}
+
+.add-product-form input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.add-product-form input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.add-product-form input[type="number"]::-webkit-outer-spin-button,
+.add-product-form input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.add-product-form .form-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.add-product-form button {
+  background-color: #007bff;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.add-product-form button:hover {
+  background-color: #0056b3;
+}
+
+.add-product-form button[type="button"] {
+  background-color: #dc3545;
+  margin-left: 10px;
+}
+
+.add-product-form button[type="button"]:hover {
+  background-color: #c82333;
+}
+
+/* Styling for input fields and labels */
+.add-product-form input:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+/* Form field spacing */
+.add-product-form label,
+.add-product-form input {
+  margin-bottom: 10px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .add-product-container {
+    padding: 15px;
+  }
+
+  .add-product-form {
+    gap: 10px;
+  }
+
+  .add-product-form .form-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .add-product-form button {
+    width: 100%;
+    margin: 5px 0;
+  }
+
+  .add-product-form button[type="button"] {
+    margin-top: 10px;
+  }
+}

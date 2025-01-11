@@ -1,9 +1,23 @@
 import React from "react";
-import "../style/AdminPage.css"; // Include a CSS file for styling
+import "../style/AdminPage.css";
+import AdminNavbar from "../../component/AdminNavbar";
+import { useState } from "react";
 
 const AdminPage = () => {
+  const [currentSection, setCurrentSection] = useState("dashboard");
+
+  const handleNavigation = (section) => {
+    setCurrentSection(section);
+    alert(
+      `Navigating to ${section.charAt(0).toUpperCase() + section.slice(1)}`
+    );
+  };
+
   return (
     <div className="admin-page-container">
+      <section className="admin-navbar-section">
+        <AdminNavbar onNavigate={handleNavigation} />
+      </section>
       <header className="admin-header">
         <h1>Admin Dashboard</h1>
         <p>Manage your application settings and data efficiently.</p>
@@ -13,10 +27,14 @@ const AdminPage = () => {
         <section className="admin-navigation">
           <nav>
             <ul>
-              <li onClick={() => alert("Navigating to User Management")}>User Management</li>
+              <li onClick={() => alert("Navigating to User Management")}>
+                User Management
+              </li>
               <li onClick={() => alert("Navigating to Reports")}>Reports</li>
               <li onClick={() => alert("Navigating to Settings")}>Settings</li>
-              <li onClick={() => alert("Navigating to Notifications")}>Notifications</li>
+              <li onClick={() => alert("Navigating to Notifications")}>
+                Notifications
+              </li>
             </ul>
           </nav>
         </section>

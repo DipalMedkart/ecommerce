@@ -1,10 +1,10 @@
 import React from "react";
-import "../style/Home.css"; 
+import "../style/Home.css";
 import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
-
-    const navigate = useNavigate();
+  
+  const navigate = useNavigate();
   return (
     <div className="homepage-container">
       <header className="homepage-header">
@@ -14,13 +14,19 @@ const HomePage = () => {
 
       <main className="homepage-main">
         <div className="auth-buttons">
-          <button className="signup-button" onClick={() => navigate('/signup')}>Sign Up</button>
-          <button className="signin-button" onClick={() =>navigate('/login') }>Sign In</button>
+          <button className="signup-button" onClick={() => navigate("/signup")}>
+            Sign Up
+          </button>
+          <button className="signin-button" onClick={() => navigate("/login")}>
+            Sign In
+          </button>
         </div>
       </main>
 
       <footer className="homepage-footer">
-        <p>&copy; {new Date().getFullYear()} Your Company. All Rights Reserved.</p>
+        <p>
+          &copy; {new Date().getFullYear()} Your Company. All Rights Reserved.
+        </p>
       </footer>
     </div>
   );
