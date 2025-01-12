@@ -2,10 +2,12 @@ import React from "react";
 import "../pages/style/AdminNavbar.css";
 // import AddProduct from "../pages/product-operation/AddProduct";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const AdminNavbar = ({ onNavigate }) => {
   const [showAddProduct, setShowAddProduct] = useState(false);
 
+  const navigate = useNavigate();
   const handleAddProductClick = () => {
     // setShowAddProduct(true);
   };
@@ -21,14 +23,17 @@ const AdminNavbar = ({ onNavigate }) => {
           <h2>Admin Panel</h2>
         </div>
         <ul className="admin-navbar-links">
-          <li
+          {/* <li
             onClick={() => {
               handleAddProductClick;
             }}
           >
             Add Product
-          </li>
-          <li onClick={() => onNavigate("deleteProduct")}>Delete Product</li>
+          </li> */}
+          {/* <li onClick={() => onNavigate("deleteProduct")}>Delete Product</li> */}
+          
+          <li onClick={() => navigate("/admin-deshboard/add-product")}>Add Product</li>
+          <li onClick={() => navigate("/admin-deshboard/delete-product")}>Delete Product</li>
           <li onClick={() => onNavigate("updateProduct")}>Update Product</li>
           <li onClick={() => onNavigate("viewOrders")}>View Orders</li>
           <li onClick={() => onNavigate("manageInventory")}>

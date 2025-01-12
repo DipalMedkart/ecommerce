@@ -3,53 +3,44 @@ import "../style/Login.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-
 const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
 
-  const handleSubmit =async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage("");
     console.log("Email:", email, "Password:", password);
 
-    try{
+    try {
       const response = await axios("http://localhost:5000/login", {
         email,
         password,
-      })
+      });
 
       setMessage("Login successful!");
-      const {token, role} = response.data; 
-
+      const { token, role } = response.data;
 
       // Store token in localstore for future use
-      localStorage.setItem("authToken", token); 
-
+      localStorage.setItem("authToken", token);
 
       // navigating to dashboard after login sucessfull depend on role
-      if(role === "Admin"){
+      if (role === "Admin") {
         navigate("/admin-deshboard");
-      }else{
-        navigate("/")
+      } else {
+        navigate("/");
       }
-
-      
     } catch (error) {
-
-      // Handle error response here 
+      // Handle error response here
       if (error.response && error.response.data.message) {
-        setMessage(error.response.data.message); 
+        setMessage(error.response.data.message);
       } else {
         setMessage("An error occurred. Please try again.");
       }
     }
-      
-    }
-    
-  
+  };
 
   return (
     <div className="login-container">
