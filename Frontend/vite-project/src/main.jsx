@@ -18,8 +18,11 @@ import Home from "./pages/public/Home";
 import AdminPage from "./pages/public/AdminPage";
 import Navbar from "./component/Navbar";
 import AddProduct from "./pages/product-operation/AddProduct";
-import DeleteProducts from "./pages/product-operation/DeleteProduct";
+import AdminProducts from "./pages/product-operation/AdminProducts";
 import CustomerDashboard from "./pages/public/CustomerDeshboard";
+import CustomerNavbar from "./component/CustomerNavbar"
+
+
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -33,7 +36,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/customer-deshboard" element={<CustomerDashboard />} />
         <Route path="/navbar" element={<Navbar />} />
         <Route path="/admin-deshboard/add-product" element={<AddProduct/>} />
-        <Route path="/admin-deshboard/delete-product" element={<DeleteProducts/>} />
+        <Route path="/admin-deshboard/product-details" element={<AdminProducts/>} />
+        <Route path="/customer-navbar" element={<CustomerNavbar/>} />
       </Routes>
     </Router>
   </React.StrictMode>

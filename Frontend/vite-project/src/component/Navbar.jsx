@@ -1,17 +1,22 @@
-import React from "react";
-import "../pages/style/Navbar.css";
+import React from 'react';
+import '../pages/style/Navbar.css'; // Import the CSS file
+import { FaSearch } from 'react-icons/fa'
 
 const Navbar = () => {
   return (
-    <nav className="navigation-bar">
-      <div className="navbar-logo">MyAdminPanel</div>
-      <ul className="navbar-links">
-        <li onClick={() => alert("Navigating to Dashboard")}>Dashboard</li>
-        <li onClick={() => alert("Navigating to Users")}>Users</li>
-        <li onClick={() => alert("Navigating to Reports")}>Reports</li>
-        <li onClick={() => alert("Navigating to Settings")}>Settings</li>
-        <li onClick={() => alert("Logging Out")}>Logout</li>
-      </ul>
+    <nav className="navbar">
+      <div className="brand-name">Your Brand</div>
+      <div className="navbar-items">
+        <div className="search-container">
+          <FaSearch className="search-icon" />
+          <input type="text" placeholder="Search..." className="search-bar" />
+        </div>
+        <button className="navbar-button">Home</button>
+        <button className="navbar-button">About</button>
+        <button className="navbar-button">Cart</button>
+        <img src="../../public/images/blank-pic.webp" alt="Profile" className="profile-pic" />
+        <button className="logout-button">Logout</button>
+      </div>
     </nav>
   );
 };

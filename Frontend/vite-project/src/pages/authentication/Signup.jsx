@@ -5,6 +5,7 @@ import axios from "axios";
 
 const Signup = () => {
   const navigate = useNavigate();
+  const [message, setMessage] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -27,19 +28,22 @@ const Signup = () => {
       return;
     }
     console.log("Signup Data:", formData);
+
+    const role = "Customer";
     
 
     try {
       
-      const response = await axios.post("http://localhost:5000/signup", {
+      const response = await axios.post("http://localhost:5000/auth/signup", {
         name: formData.name,
         email: formData.email,
         password: formData.password,
+        role,
       });
 
       // redirect to login page
       setMessage("Signup successful! Redirecting to login...");
-      setTimeout(() => navigate("/login"), 2000); 
+      setTimeout(() => navigate("/login"), 100); 
     } catch (error) {
       // console.error(error);
       // this is for error handling 

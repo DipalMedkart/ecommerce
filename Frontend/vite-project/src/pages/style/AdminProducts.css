@@ -1,0 +1,137 @@
+Container for the entire admin product page
+.admin-products-container {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 2rem;
+  color: #333;
+}
+
+/* Product list styling */
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Flex container for product details to display them in a row */
+.product-details {
+  display: flex;
+  justify-content: space-between;
+  flex: 1;
+  width: 100%;
+  padding-right: 20px;
+}
+
+.product-details p {
+  margin: 0;
+  padding: 5px;
+  flex: 1;
+  text-align: left;
+}
+
+/* Style for individual product fields */
+.product-details p span {
+  font-weight: bold;
+}
+
+/* Styling for the delete button */
+/* Button styles for both Update and Delete */
+button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: 14px;
+  margin-right: 10px;
+}
+
+/* Update button specific styles */
+button.update {
+  background-color: #3498db; /* Blue color for update */
+  color: white;
+}
+
+button.update:hover {
+  background-color: #2980b9; /* Darker blue on hover */
+}
+
+/* Delete button specific styles */
+button.delete {
+  background-color: #e74c3c; /* Red color for delete */
+  color: white;
+}
+
+button.delete:hover {
+  background-color: #c0392b; /* Darker red on hover */
+}
+
+/* from here */
+
+.update-form {
+  display: none; /* Hide the form initially */
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.update-form.open {
+  display: block; /* Show the form when the 'open' class is added */
+}
+
+.update-form h2 {
+  margin-bottom: 20px;
+}
+
+.update-form label {
+  display: block;
+  margin: 10px 0;
+}
+
+.update-form input {
+  width: 100%;
+  padding: 8px;
+  margin: 5px 0 20px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.update-form button {
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.update-form button:hover {
+  background-color: #45a049;
+}
+
+.cancel {
+  background-color: #e74c3c;
+  margin-top: 10px;
+}
+
+.cancel:hover {
+  background-color: #c0392b;
+}

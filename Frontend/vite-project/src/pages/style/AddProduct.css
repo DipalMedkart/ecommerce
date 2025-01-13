@@ -1,116 +1,90 @@
-/* Main container for AddProduct page */
-.add-product-container {
-  width: 100%;
-  max-width: 800px;
-  margin: 30px auto;
+/* Container for the form */
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f4f4f4;
   padding: 20px;
-  background-color: #f8f9fa;
+}
+
+/* Form Styling */
+.form {
+  width: 500px;
+  background-color: white;
+  padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: 'Arial', sans-serif;
 }
 
-.add-product-container h2 {
+.form h2 {
   text-align: center;
   margin-bottom: 20px;
-  font-size: 28px;
-  color: #343a40;
+  font-size: 24px;
+  color: #333;
 }
 
-/* Styling for form and its elements */
-.add-product-form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+/* Styling for input fields */
+.form-group {
+  margin-bottom: 15px;
 }
 
-.add-product-form label {
-  font-weight: bold;
-  font-size: 16px;
-  color: #495057;
+.form-group label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #555;
 }
 
-.add-product-form input {
+.form-group input {
   width: 100%;
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ced4da;
-  border-radius: 5px;
-  box-sizing: border-box;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
-.add-product-form input[type="number"] {
-  -moz-appearance: textfield;
+.form-group input:focus {
+  border-color: #007bff;
+  outline: none;
 }
 
-.add-product-form input[type="number"]::-webkit-outer-spin-button,
-.add-product-form input[type="number"]::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-.add-product-form .form-actions {
+/* Button Styling */
+.form-actions {
   display: flex;
   justify-content: space-between;
-  margin-top: 20px;
+  align-items: center;
 }
 
-.add-product-form button {
+.form-actions button {
+  width: 48%;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.form-actions button[type="submit"] {
   background-color: #007bff;
   color: white;
-  padding: 12px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s;
 }
 
-.add-product-form button:hover {
+.form-actions button[type="submit"]:hover {
   background-color: #0056b3;
 }
 
-.add-product-form button[type="button"] {
-  background-color: #dc3545;
-  margin-left: 10px;
+.form-actions button[type="button"] {
+  background-color: #ccc;
+  color: white;
 }
 
-.add-product-form button[type="button"]:hover {
-  background-color: #c82333;
+.form-actions button[type="button"]:hover {
+  background-color: #888;
 }
 
-/* Styling for input fields and labels */
-.add-product-form input:focus {
+button:focus {
   outline: none;
-  border-color: #007bff;
-}
-
-/* Form field spacing */
-.add-product-form label,
-.add-product-form input {
-  margin-bottom: 10px;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .add-product-container {
-    padding: 15px;
-  }
-
-  .add-product-form {
-    gap: 10px;
-  }
-
-  .add-product-form .form-actions {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .add-product-form button {
-    width: 100%;
-    margin: 5px 0;
-  }
-
-  .add-product-form button[type="button"] {
-    margin-top: 10px;
-  }
 }

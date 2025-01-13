@@ -1,6 +1,7 @@
 /* Container for the signup form */
 .signup-container {
-    max-width: 400px;
+    /* max-width: 400px; */
+    width: 400px;
     margin: 50px auto;
     padding: 20px;
     background: #f9f9f9;

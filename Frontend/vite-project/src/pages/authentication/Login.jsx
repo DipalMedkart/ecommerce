@@ -15,22 +15,25 @@ const Login = () => {
     console.log("Email:", email, "Password:", password);
 
     try {
-      const response = await axios("http://localhost:5000/login", {
+      const response = await axios.post("http://localhost:5000/auth/login", {
         email,
         password,
       });
 
       setMessage("Login successful!");
-      const { token, role } = response.data;
+      // const { token, role } = response.data;
+
+      const token = response.data.token;
+      const role = response.data.user.role;
 
       // Store token in localstore for future use
-      localStorage.setItem("authToken", token);
+      localStorage.setItem("token", token);
 
       // navigating to dashboard after login sucessfull depend on role
       if (role === "Admin") {
         navigate("/admin-deshboard");
       } else {
-        navigate("/");
+        navigate("/customer-deshboard");
       }
     } catch (error) {
       // Handle error response here

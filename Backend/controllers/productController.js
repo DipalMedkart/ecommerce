@@ -29,11 +29,14 @@ const getAllProducts = async (req, res) => {
   };
 
   const createProduct = async (req, res) => {
+    console.log("hit");
     const { product_name, ws_code, sales_price, mrp, package_size, images, tags, category_id } =
       req.body;
+
+      console.log(req.body)
   
     // Validate required fields
-    if (!product_name || !sales_price || !mrp || !package_size) {
+    if (!product_name || !sales_price || !mrp || !package_size|| !ws_code) {
       return res.status(400).json({ message: 'Missing required fields.' });
     }
   
@@ -45,12 +48,14 @@ const getAllProducts = async (req, res) => {
         RETURNING *`,
         [
           product_name,
-          ws_code || 0,
+          ws_code ,
           sales_price,
           mrp,
           package_size,
-          images || [],
-          tags || [],
+          // images || [],
+          // tags || [],
+          images || '{}',
+          tags || '{}',
           category_id,
         ]
       );

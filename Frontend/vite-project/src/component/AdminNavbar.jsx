@@ -16,6 +16,16 @@ const AdminNavbar = ({ onNavigate }) => {
     // setShowAddProduct(false);
   };
 
+  const handleLogout = () => {
+    
+
+    localStorage.removeItem("token");
+    localStorage.removeItem("role");
+  
+    
+    window.location.href = "/login";
+  };
+
   return (
     <>
       <nav className="admin-navbar">
@@ -33,7 +43,7 @@ const AdminNavbar = ({ onNavigate }) => {
           {/* <li onClick={() => onNavigate("deleteProduct")}>Delete Product</li> */}
           
           <li onClick={() => navigate("/admin-deshboard/add-product")}>Add Product</li>
-          <li onClick={() => navigate("/admin-deshboard/delete-product")}>Delete Product</li>
+          <li onClick={() => navigate("/admin-deshboard/product-details")}>Product Details</li>
           <li onClick={() => onNavigate("updateProduct")}>Update Product</li>
           <li onClick={() => onNavigate("viewOrders")}>View Orders</li>
           <li onClick={() => onNavigate("manageInventory")}>
@@ -42,13 +52,13 @@ const AdminNavbar = ({ onNavigate }) => {
         </ul>
         <div className="admin-navbar-profile">
           <img
-            src="../../public/images/blank-pic.webp" // Replace with the actual profile picture URL
+            src="../../public/images/blank-pic.webp" 
             alt="Profile"
             className="profile-pic"
           />
           <button
             className="logout-button"
-            onClick={() => alert("Logging out...")}
+            onClick={() => handleLogout()}
           >
             Logout
           </button>

@@ -1,0 +1,177 @@
+/* Container for the entire admin product page */
+.admin-products-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+/* Modal overlay that blurs the background */
+.update-form-container {
+    position: relative;
+}
+
+/* The actual blur overlay that affects the background */
+.update-form-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Semi-transparent dark background */
+    backdrop-filter: blur(5px);
+    /* Apply blur to the background */
+    display: block;
+    z-index: 999;
+    /* Ensure it is behind the form */
+}
+
+/* The form container (inside the modal-like overlay) */
+.update-form {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* Center the form */
+    background-color: white;
+    padding: 15px;
+    border-radius: 8px;
+    width: 500px;
+    /* Reduced width */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    /* Ensure the form is above the overlay */
+    height: auto;
+    /* Adjust height dynamically */
+    max-height: 90vh;
+    /* Limit the height to 90% of the viewport height */
+    overflow-y: auto;
+    /* Allow scrolling inside the form if content overflows */
+}
+
+/* Input fields, buttons, and other form styling */
+.update-form h2 {
+    margin-bottom: 15px;
+    /* Reduced margin */
+    font-size: 18px;
+}
+
+.update-form label {
+    display: block;
+    margin: 5px 0;
+    /* Reduced margin */
+    font-size: 14px;
+}
+
+.update-form input {
+    width: 100%;
+    padding: 6px;
+    /* Reduced padding */
+    margin: 4px 0 12px 0;
+    /* Reduced margin */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    /* Reduced font size */
+}
+
+.update-form button {
+    padding: 8px 16px;
+    /* Reduced padding */
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 14px;
+}
+
+.update-form button:hover {
+    background-color: #45a049;
+}
+
+.cancel {
+    background-color: #e74c3c;
+    margin-top: 10px;
+}
+
+.cancel:hover {
+    background-color: #c0392b;
+}
+
+/* Product list styling */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 12px;
+    /* Reduced padding */
+    margin-bottom: 10px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.product-details {
+    display: flex;
+    justify-content: space-between;
+    flex: 1;
+    width: 100%;
+    padding-right: 15px;
+    /* Reduced padding */
+}
+
+.product-details p {
+    margin: 0;
+    padding: 3px;
+    /* Reduced padding */
+    flex: 1;
+    text-align: left;
+}
+
+/* Style for individual product fields */
+.product-details p span {
+    font-weight: bold;
+}
+
+/* Styling for the delete button */
+button {
+    padding: 6px 10px;
+    /* Reduced padding */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 13px;
+    margin-right: 8px;
+    /* Reduced margin */
+}
+
+/* Update button specific styles */
+button.update {
+    background-color: #3498db;
+    /* Blue color for update */
+    color: white;
+}
+
+button.update:hover {
+    background-color: #2980b9;
+    /* Darker blue on hover */
+}
+
+/* Delete button specific styles */
+button.delete {
+    background-color: #e74c3c;
+    /* Red color for delete */
+    color: white;
+}
+
+button.delete:hover {
+    background-color: #c0392b;
+    /* Darker red on hover */
+}
