@@ -19,17 +19,17 @@ CREATE TABLE Users (
     password VARCHAR(255) NOT NULL,            -- Password, not null
     role VARCHAR(10) CHECK (role IN ('Admin', 'Customer')) NOT NULL -- Role, must be 'Admin' or 'Customer'
 );
-CREATE TABLE Orders (
+
+CREATE TABLE Order_Items (
+    id SERIAL PRIMARY KEY,            -- Auto-incremented order item ID
+    order_id INTEGER NOT NULL,        -- Order ID (foreign key reference to Orders table)
+    CREATE TABLE Orders (
     id SERIAL PRIMARY KEY,                    -- Auto-incremented order ID
     user_id INTEGER NOT NULL,                  -- User ID (foreign key reference to Users table)
     status VARCHAR(50) NOT NULL,               -- Status of the order (e.g., 'Pending', 'Completed', etc.)
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Order creation timestamp, default to the current timestamp
     FOREIGN KEY (user_id) REFERENCES Users(id) ON DELETE CASCADE -- Foreign key reference to Users table
-);
-CREATE TABLE Order_Items (
-    id SERIAL PRIMARY KEY,            -- Auto-incremented order item ID
-    order_id INTEGER NOT NULL,        -- Order ID (foreign key reference to Orders table)
-    product_id INTEGER NOT NULL,      -- Product ID (foreign key reference to Products table)
+);product_id INTEGER NOT NULL,      -- Product ID (foreign key reference to Products table)
     quantity INTEGER NOT NULL CHECK (quantity > 0), -- Quantity of the product in the order, must be greater than 0
     FOREIGN KEY (order_id) REFERENCES Orders(id) ON DELETE CASCADE, -- Foreign key to Orders table
     FOREIGN KEY (product_id) REFERENCES Products(id) ON DELETE CASCADE -- Foreign key to Products table

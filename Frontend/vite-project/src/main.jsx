@@ -21,6 +21,8 @@ import AddProduct from "./pages/product-operation/AddProduct";
 import AdminProducts from "./pages/product-operation/AdminProducts";
 import CustomerDashboard from "./pages/public/CustomerDeshboard";
 import CustomerNavbar from "./component/CustomerNavbar"
+import ManageOrders from "./pages/Admin-operations/ManageOrders";
+import ManageUsers from "./pages/Admin-operations/ManageUsers";
 
 
 
@@ -28,7 +30,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Router>
       <Routes>
-        {/* Define different routes */}
+       
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
@@ -37,6 +39,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/navbar" element={<Navbar />} />
         <Route path="/admin-deshboard/add-product" element={<AddProduct/>} />
         <Route path="/admin-deshboard/product-details" element={<AdminProducts/>} />
+        <Route path="/admin-deshboard/manage-users" element={<ManageUsers/>} />
+        <Route path="/admin-deshboard/manage-orders" element={<ManageOrders/>} />
         <Route path="/customer-navbar" element={<CustomerNavbar/>} />
       </Routes>
     </Router>

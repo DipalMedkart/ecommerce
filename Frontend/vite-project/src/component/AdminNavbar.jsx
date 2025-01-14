@@ -44,8 +44,10 @@ const AdminNavbar = ({ onNavigate }) => {
           
           <li onClick={() => navigate("/admin-deshboard/add-product")}>Add Product</li>
           <li onClick={() => navigate("/admin-deshboard/product-details")}>Product Details</li>
-          <li onClick={() => onNavigate("updateProduct")}>Update Product</li>
-          <li onClick={() => onNavigate("viewOrders")}>View Orders</li>
+          <li onClick={() => navigate("/admin-deshboard/manage-users")}>Manage Users</li>
+          <li onClick={() => navigate("/admin-deshboard/manage-orders")}>Manage Orders</li>
+          {/* <li onClick={() => onNavigate("updateProduct")}>Update Product</li> */}
+          {/* <li onClick={() => onNavigate("viewOrders")}>View Orders</li> */}
           <li onClick={() => onNavigate("manageInventory")}>
             Manage Inventory
           </li>

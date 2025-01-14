@@ -1,0 +1,59 @@
+/* Container for the Manage Orders page */
+.manage-orders {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Heading style */
+  .manage-orders h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  /* Table styles */
+  .manage-orders table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  .manage-orders th,
+  .manage-orders td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+  }
+  
+  .manage-orders th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+  
+  /* Row hover effect */
+  .manage-orders tr:hover {
+    background-color: #f9f9f9;
+  }
+  
+  /* Button styles */
+  .manage-orders button {
+    background-color: #4CAF50; /* Green */
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    cursor: pointer;
+    margin-right: 8px;
+    font-size: 14px;
+  }
+  
+  .manage-orders button:hover {
+    background-color: #45a049;
+  }
+  
+  .manage-orders button.delete {
+    background-color: #f44336; /* Red */
+  }
+  
+  .manage-orders button.delete:hover {
+    background-color: #e53935;
+  }
+  

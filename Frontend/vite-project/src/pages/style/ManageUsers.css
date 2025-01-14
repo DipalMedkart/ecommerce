@@ -1,0 +1,49 @@
+/* Container for the Manage Users page */
+.manage-users {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+/* Heading style */
+.manage-users h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+/* Table styles */
+.manage-users table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.manage-users th,
+.manage-users td {
+  padding: 12px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+.manage-users th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+/* Row hover effect */
+.manage-users tr:hover {
+  background-color: #f9f9f9;
+}
+
+/* Button styles */
+.manage-users button {
+  background-color: #f44336; /* Red */
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.manage-users button:hover {
+  background-color: #e53935;
+}
