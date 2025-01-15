@@ -108,8 +108,27 @@ const getAllProducts = async (req, res) => {
       res.status(500).json({ error: 'Error deleting product', details: err.message });
     }
   };
+
+  const searchProducts = async (req, res) => {
+    const { query } = req.query;
+  
+    if (!query) {
+      return res.status(400).json({ message: 'Query parameter is required' });
+    }
+  
+    try {
+      const results = await db.query(
+        'SELECT * FROM products WHERE name ILIKE $1 OR ws_code ILIKE $2', 
+        [`%${query}%`, `%${query}%`]  
+      );
+      return res.status(200).json(results.rows);
+    } catch (error) {
+      console.error('Error searching products:', error);
+      return res.status(500).json({ message: 'Internal server error' });
+    }
+  };
   
   
-  module.exports = { getAllProducts, getProductById, createProduct, updateProduct, deleteProduct}; 
+  module.exports = { getAllProducts, getProductById, createProduct, updateProduct, deleteProduct, searchProducts}; 
   
 

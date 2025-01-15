@@ -23,6 +23,7 @@ import CustomerDashboard from "./pages/public/CustomerDeshboard";
 import CustomerNavbar from "./component/CustomerNavbar"
 import ManageOrders from "./pages/Admin-operations/ManageOrders";
 import ManageUsers from "./pages/Admin-operations/ManageUsers";
+import OrdersPage from "./pages/user-pages/OrdersPage";
 
 
 
@@ -36,6 +37,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/signup" element={<Signup />} />
         <Route path="/admin-deshboard" element={<AdminPage />} />
         <Route path="/customer-deshboard" element={<CustomerDashboard />} />
+        <Route path="/customer-deshboard/orders" element={<OrdersPage />} />
         <Route path="/navbar" element={<Navbar />} />
         <Route path="/admin-deshboard/add-product" element={<AddProduct/>} />
         <Route path="/admin-deshboard/product-details" element={<AdminProducts/>} />

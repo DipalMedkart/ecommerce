@@ -1,11 +1,11 @@
 CREATE TABLE Categories (
-id Serial Primary key,
-category_name varchar(255) not null
+    id Serial Primary key,
+    category_name varchar(255) not null
 );
 CREATE TABLE Products (
     id SERIAL PRIMARY KEY,
     product_name VARCHAR(255) NOT NULL,
-    ws_code INTEGER CHECK (ws_code >= 0),
+    ws_code INTEGER UNIQUE CHECK (ws_code >= 0),
     sales_price Integer Check (sales_price >0),
     mrp Integer Check (sales_price >0),
     package_size Integer Check (sales_price >0),
@@ -23,14 +23,17 @@ CREATE TABLE Users (
 CREATE TABLE Order_Items (
     id SERIAL PRIMARY KEY,            -- Auto-incremented order item ID
     order_id INTEGER NOT NULL,        -- Order ID (foreign key reference to Orders table)
-    CREATE TABLE Orders (
+    product_id INTEGER NOT NULL,      -- Product ID (foreign key reference to Products table)
+    quantity INTEGER NOT NULL CHECK (quantity > 0), -- Quantity of the product in the order, must be greater than 0
+    FOREIGN KEY (order_id) REFERENCES Orders(id) ON DELETE CASCADE, -- Foreign key to Orders table
+    FOREIGN KEY (product_id) REFERENCES Products(id) ON DELETE CASCADE -- Foreign key to Products table
+
+);
+
+CREATE TABLE Orders (
     id SERIAL PRIMARY KEY,                    -- Auto-incremented order ID
     user_id INTEGER NOT NULL,                  -- User ID (foreign key reference to Users table)
     status VARCHAR(50) NOT NULL,               -- Status of the order (e.g., 'Pending', 'Completed', etc.)
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Order creation timestamp, default to the current timestamp
     FOREIGN KEY (user_id) REFERENCES Users(id) ON DELETE CASCADE -- Foreign key reference to Users table
-);product_id INTEGER NOT NULL,      -- Product ID (foreign key reference to Products table)
-    quantity INTEGER NOT NULL CHECK (quantity > 0), -- Quantity of the product in the order, must be greater than 0
-    FOREIGN KEY (order_id) REFERENCES Orders(id) ON DELETE CASCADE, -- Foreign key to Orders table
-    FOREIGN KEY (product_id) REFERENCES Products(id) ON DELETE CASCADE -- Foreign key to Products table
 );

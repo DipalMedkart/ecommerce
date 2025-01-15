@@ -23,13 +23,18 @@ const ManageUsers = () => {
 
   // Handle deleting a user
   const handleDelete = async (userId) => {
-    try {
-      await axios.delete(`http://localhost:5000/users/${userId}`, {
-        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-      });
-      setUsers(users.filter((user) => user.id !== userId)); // Remove user from the list
-    } catch (error) {
-      console.error("Error deleting user:", error);
+    const isConfirmed = window.confirm('Are you sure you want to delete this user?');
+
+    if(isConfirmed){
+
+      try {
+        await axios.delete(`http://localhost:5000/users/${userId}`, {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        });
+        setUsers(users.filter((user) => user.id !== userId)); // Remove user from the list
+      } catch (error) {
+        console.error("Error deleting user:", error);
+      }
     }
   };
 

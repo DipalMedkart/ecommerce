@@ -1,0 +1,62 @@
+/* ordersPage.css */
+.orders-page {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.orders-page h1 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.orders-page table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    border: 1px solid #ddd;
+}
+
+.orders-page table th, .orders-page table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.orders-page table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+.orders-page table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.orders-page .loading,
+.orders-page .error {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #888;
+}
+
+.orders-page .error {
+    color: red;
+}
+
+.orders-page .no-orders {
+    text-align: center;
+    font-size: 1.5rem;
+    color: #555;
+}
+
+@media (max-width: 768px) {
+    .orders-page table {
+        font-size: 14px;
+    }
+
+    .orders-page table th, .orders-page table td {
+        padding: 8px 10px;
+    }
+}

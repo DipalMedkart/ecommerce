@@ -13,7 +13,15 @@ const ManageOrders = () => {
         const response = await axios.get("http://localhost:5000/orders/", {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         });
-        setOrders(response.data);
+
+        console.log(response.data);
+
+        const orderData = response.data.orders;
+        if (Array.isArray(orderData)) {
+          setOrders(orderData);
+        } else {
+          console.error("Expected an array, but got:", orderData);
+        }
       } catch (error) {
         console.error("Error fetching orders:", error);
       }
@@ -24,13 +32,17 @@ const ManageOrders = () => {
 
   // Handle deleting an order
   const handleDelete = async (orderId) => {
-    try {
-      await axios.delete(`http://localhost:5000/orders/${orderId}`, {
-        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-      });
-      setOrders(orders.filter((order) => order.id !== orderId)); // Update the UI
-    } catch (error) {
-      console.error("Error deleting order:", error);
+    const isConfirmed = window.confirm('Are you sure you want to delete this order?');
+    if(isConfirmed){
+
+      try {
+        await axios.delete(`http://localhost:5000/orders/${orderId}`, {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        });
+        setOrders(orders.filter((order) => order.id !== orderId)); // Update the UI
+      } catch (error) {
+        console.error("Error deleting order:", error);
+      }
     }
   };
 
@@ -53,36 +65,42 @@ const ManageOrders = () => {
   return (
     <div className="manage-orders">
       <h2>Manage Orders</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Order ID</th>
-            <th>User ID</th>
-            <th>Status</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {orders.map((order) => (
-            <tr key={order.id}>
-              <td>{order.id}</td>
-              <td>{order.user_id}</td>
-              <td>{order.status}</td>
-              <td>
-                <button onClick={() => handleStatusChange(order.id, "Completed")}>
-                  Mark as Completed
-                </button>
-                <button
-                  className="delete"
-                  onClick={() => handleDelete(order.id)}
-                >
-                  Delete
-                </button>
-              </td>
+      {orders.length === 0 ? (
+        <h2>No orders found.</h2>) : (
+
+        <table>
+          <thead>
+            <tr>
+              <th>Order ID</th>
+              <th>User ID</th>
+              <th>Amount</th>
+              <th>Status</th>
+              <th>Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {orders.map((order) => (
+              <tr key={order.id}>
+                <td>{order.id}</td>
+                <td>{order.user_id}</td>
+                <td>{order.bill_amount}</td>
+                <td>{order.status}</td>
+                <td>
+                  <button onClick={() => handleStatusChange(order.id, "Completed")}>
+                    Mark as Completed
+                  </button>
+                  <button
+                    className="delete"
+                    onClick={() => handleDelete(order.id)}
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
     </div>
   );
 };

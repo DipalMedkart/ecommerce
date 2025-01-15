@@ -76,3 +76,21 @@
 .logout-button:hover {
   background-color: #c0392b;
 }
+
+.cart-icon {
+  position: relative;
+  cursor: pointer;
+  margin-right: 12px;
+  margin-left: 10px;
+}
+
+.cart-count {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: red;
+  color: white;
+  font-size: 12px;
+  padding: 2px 4px;
+  border-radius: 50%;
+}

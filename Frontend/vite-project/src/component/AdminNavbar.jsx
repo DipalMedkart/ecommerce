@@ -20,7 +20,7 @@ const AdminNavbar = ({ onNavigate }) => {
     
 
     localStorage.removeItem("token");
-    localStorage.removeItem("role");
+    // localStorage.removeItem("role");
   
     
     window.location.href = "/login";

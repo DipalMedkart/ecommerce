@@ -2,9 +2,11 @@ import React from "react";
 import "../style/AdminPage.css";
 import AdminNavbar from "../../component/AdminNavbar";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const AdminPage = () => {
   const [currentSection, setCurrentSection] = useState("dashboard");
+  const navigate = useNavigate();
 
   const handleNavigation = (section) => {
     setCurrentSection(section);
@@ -27,7 +29,7 @@ const AdminPage = () => {
         <section className="admin-navigation">
           <nav>
             <ul>
-              <li onClick={() => alert("Navigating to User Management")}>
+              <li onClick={() => navigate("/admin-deshboard/manage-users") }>
                 User Management
               </li>
               <li onClick={() => alert("Navigating to Reports")}>Reports</li>

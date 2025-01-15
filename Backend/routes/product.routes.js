@@ -9,12 +9,14 @@ const {
   createProduct,
   getProductById,
   updateProduct,
-  deleteProduct
+  deleteProduct,
+  searchProducts
 } = require('../controllers/productController');
 
 // Public Routes
 router.get('/', authenticate, getAllProducts);
 router.get('/:id', authenticate, getProductById);
+router.get('/search', authenticate, searchProducts);
 
 // Admin-Only Routes
 router.post('/create', authenticate, authorize(["Admin"]), createProduct);
