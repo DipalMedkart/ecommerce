@@ -16,6 +16,10 @@ const AdminProducts = () => {
     category_id: '',
   });
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const productsPerPage = 10;
+
+
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -29,7 +33,7 @@ const AdminProducts = () => {
         console.error('Error fetching products', error);
       }
     };
-    
+
     fetchProducts();
   }, []);
 
@@ -50,7 +54,7 @@ const AdminProducts = () => {
   const handleDelete = async (id) => {
     // Show confirmation box
     const isConfirmed = window.confirm('Are you sure you want to delete this product?');
-    
+
     if (isConfirmed) {
       try {
         await axios.delete(`http://localhost:5000/products/products/${id}`, {
@@ -58,7 +62,7 @@ const AdminProducts = () => {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
         });
-        setProducts(products.filter((product) => product.id !== id)); 
+        setProducts(products.filter((product) => product.id !== id));
         alert('Product deleted successfully');
       } catch (error) {
         console.error('Error deleting product', error);
@@ -75,8 +79,8 @@ const AdminProducts = () => {
       sales_price: product.sales_price,
       mrp: product.mrp,
       package_size: product.package_size,
-      images: product.images.join(', '), 
-      tags: product.tags.join(', '), 
+      images: product.images.join(', '),
+      tags: product.tags.join(', '),
       category_id: product.category_id,
     });
   };
@@ -113,15 +117,21 @@ const AdminProducts = () => {
     }
   };
 
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
 
   return (
     <div className="admin-products-container">
       <h1>All Products</h1>
 
-       
-       {editProduct && (
+
+      {editProduct && (
         <div className="update-form-container">
-          <div className="update-form-overlay"></div> 
+          <div className="update-form-overlay"></div>
           <div className="update-form">
             <h2>Edit Product</h2>
             <label>Product Name:</label>
@@ -185,7 +195,7 @@ const AdminProducts = () => {
           </div>
         </div>
       )}
-      
+      {/*       
       <ul>
         {products.length > 0 ?( products.map((product) => (
           <li key={product.id}>
@@ -193,6 +203,9 @@ const AdminProducts = () => {
               <p><span>Name:</span> {product.product_name}</p>
               <p><span>ws_code:</span> {product.ws_code}</p>
               <p><span>MRP:</span> ${product.mrp}</p>
+              <p><span>Sales Price:</span> ${product.sales_price}</p>
+              <p><span>Category Id:</span> ${product.category_id}</p>
+
             </div>
             <button className='update' onClick={() => handleEdit(product)}>Update</button>
             <button className='delete' onClick={() => handleDelete(product.id)}>Delete</button>
@@ -200,7 +213,61 @@ const AdminProducts = () => {
         ))) : (
           <p>No products available.</p>
         ) }
-      </ul>
+      </ul> */}
+
+      <table className="product-table">
+        <thead>
+          <tr>
+            <th>Product Name</th>
+            <th>WS Code</th>
+            <th>MRP</th>
+            <th>Sales Price</th>
+            <th>Package Size</th>
+            <th>Stock Available</th>
+            <th>Category ID</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {currentProducts.length > 0 ? (
+            currentProducts.map((product) => (
+              <tr key={product.id}>
+                <td>{product.product_name}</td>
+                <td>{product.ws_code}</td>
+                <td>${product.mrp}</td>
+                <td>${product.sales_price}</td>
+                <td>{product.package_size}</td>
+                <td>{product.available_stock}</td>
+                <td>{product.category_id}</td>
+                <td>
+                  <button className="update" onClick={() => handleEdit(product)}>
+                    Update
+                  </button>
+                  <button className="delete" onClick={() => handleDelete(product.id)}>
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="8">No products available.</td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+
+      <div className="pagination">
+        {Array.from({ length: Math.ceil(products.length / productsPerPage) }).map((_, index) => (
+          <button 
+            key={index + 1}
+            onClick={() => paginate(index + 1)}
+            className={currentPage === index + 1 ? 'active' : ''}
+          >
+            {index + 1}
+          </button>
+        ))}
+      </div>
     </div>
   );
 };

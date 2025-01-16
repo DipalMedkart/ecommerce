@@ -1,85 +1,10 @@
-// import React, { useEffect, useState } from "react";
-// import axios from "axios";
-// import "../style/CustomerDeshboard.css"; // Add styles if needed
 
-// const CustomerDashboard = () => {
-//   const [products, setProducts] = useState([]);
-//   const [loading, setLoading] = useState(true);
-//   const [error, setError] = useState("");
-
-//   const token = localStorage.getItem('token');
-//   console.log(token);
-
-
-//   useEffect(() => {
-//     const fetchProducts = async () => {
-//       try {
-//         const response = await axios.get("http://localhost:5000/products/",{
-//           headers: {
-//             'Authorization': `Bearer ${token}` ,
-//             'Content-Type': 'application/json'
-//           }
-//         });
-//         setProducts(response.data);
-//         setLoading(false);
-//       } catch (err) {
-//         console.log(err);
-
-//         setError("Error fetching products. Please try again later.");
-//         setLoading(false);
-//       }
-//     };
-
-//     fetchProducts();
-//   }, []);
-
-//   if (loading) {
-//     return <div>Loading products...</div>;
-//   }
-
-//   if (error) {
-//     return <div>{error}</div>;
-//   }
-
-//   return (
-//     <div className="customer-dashboard">
-//       <h2>Product List</h2>
-//       <div className="products-container">
-//         {products.map((product) => (
-//           <div className="product-card" key={product.id}>
-//             <h3>{product.product_name}</h3>
-//             <p>{product.ws_code}</p>
-//             <p>Price: ${product.mrp}</p>
-//           </div>
-//         ))}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default CustomerDashboard;
-
-
-// CustomerDashboard.jsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../style/CustomerDeshboard2.css';
 import Navbar from '../../component/Navbar';
 import AdminNavbar from '../../component/AdminNavbar';
-// import * as jwt_decode from 'jwt-decode';
-// import jwt from "jwt-decode";
-// import jwt_decode from "jwt-decode";
-// const jwt_decode = require('jwt-decode');
-// import  {default as jwt_decode} from 'jwt-decode';
-// const jwt_decode = require('jwt-decode').default;
-
-// import jwt from "jsonwebtoken"
-
-
-// console.log(jwt_decode);  // This should log a function definition
-
-
-
+import LazyLoad from "react-lazyload"
 
 
 const CustomerDashboard = () => {
@@ -90,10 +15,31 @@ const CustomerDashboard = () => {
   const [isCartVisible, setIsCartVisible] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredProducts, setFilteredProducts] = useState([]);
+  const [debounceTimeout, setDebounceTimeout] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const productsPerPage = 10;
 
   const token = localStorage.getItem('token');
 
   useEffect(() => {
+
+    const loadCartFromLocalStorage = () => {
+      // const savedCart = localStorage.getItem('cart');
+      // if (savedCart) {
+      //   setCart(JSON.parse(savedCart));
+      // }
+      const savedCart = localStorage.getItem('cart');
+      if (savedCart) {
+        const parsedCart = JSON.parse(savedCart);
+        // Filter out items with quantity 0
+        const validCart = parsedCart.filter(item => item.quantity > 0);
+        setCart(validCart);
+      }
+    }
+
+    loadCartFromLocalStorage();
+
+
     const fetchProducts = async () => {
       try {
         const response = await axios.get("http://localhost:5000/products/", {
@@ -114,45 +60,139 @@ const CustomerDashboard = () => {
 
     fetchProducts();
   }, [token]);
-
+  /*
   const handleSearchQuery = async (query) => {
     setSearchQuery(query);
 
     if (query.trim() === '') {
-      return; // Do not send a request if the query is empty
+      // return; // Do not send a request if the query is empty
+      setFilteredProducts(products);
+    }else{
+      const lowercasedQuery = query.toLowerCase();
+      const filtered = products.filter(
+        (product) =>
+          product.product_name.toLowerCase().includes(lowercasedQuery)
+      );
+      setFilteredProducts(filtered);
+    }
+    
+  };
+  */
+
+  // this is the working code of search operation 
+  /*
+
+  const handleSearchQuery = async (query) => {
+    setSearchQuery(query);
+  
+    if (debounceTimeout) {
+      clearTimeout(debounceTimeout); // Clear previous timeout
+    }
+    if (query.trim() === '') {
+      setFilteredProducts(products); // Reset to all products if query is empty
+      return;
     }
 
+  
+    // try {
+    //   const response = await axios.get(`http://localhost:5000/products/products/search?query=${query}`, {
+    //     headers: {
+    //       'Authorization': `Bearer ${token}`,
+    //       'Content-Type': 'application/json',
+    //     },
+    //   });
+    //   if (response.data.length > 0) {
+    //     setFilteredProducts(response.data);
+    //   } else {
+    //     setError('No products found');
+    //   } 
+    // } catch (err) {
+    //   console.log(err);
+    //   setError('Error searching products. Please try again later.');
+    // }
+
+    const timeout = setTimeout(async () => {
+      try {
+        const response = await axios.get(`http://localhost:5000/products/products/search?query=${query}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        });
+
+        // Ensure the response contains the products
+        if (response.data.length > 0) {
+          setFilteredProducts(response.data);
+        } else {
+          setError('No products found');
+        }
+      } catch (err) {
+        console.log(err);
+        setError('Error searching products. Please try again later.');
+      }
+    }, 750); // Delay the search query by 500ms
+
+    setDebounceTimeout(timeout); 
+  };
+  */
+
+
+
+  const handleSearchQuery = async (query, event) => {
+    setSearchQuery(query);
+
+    if (debounceTimeout) {
+      clearTimeout(debounceTimeout); // Clear previous timeout
+    }
+
+    // If the query is empty, reset the products list
+    if (query.trim() === '') {
+      setFilteredProducts(products); // Reset to all products if query is empty
+      return;
+    }
+
+    // If the Enter key was pressed, trigger the search immediately
+    if (event && event.key === 'Enter') {
+      triggerSearch(query);
+      return;
+    }
+
+    // Otherwise, set up a debounce timeout to wait for typing to stop
+    const timeout = setTimeout(() => {
+      triggerSearch(query);
+    }, 500); // Delay the search query by 1 second
+
+    setDebounceTimeout(timeout); // Store the timeout ID to clear it later if necessary
+  };
+
+
+  const triggerSearch = async (query) => {
     try {
-      const response = await axios.get(`http://localhost:5000/products/search?query=${query}`, {
-        params: { query },
+      const response = await axios.get(`http://localhost:5000/products/products/search?query=${query}`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
       });
-      setFilteredProducts(response.data); // Update the products with search results
+
+      // Ensure the response contains the products
+      if (response.data.length > 0) {
+        setFilteredProducts(response.data);
+        setError(''); // Reset any previous error
+      } else {
+        setFilteredProducts([]); // No products found
+        setError('');
+      }
     } catch (err) {
       console.log(err);
       setError('Error searching products. Please try again later.');
     }
-  };
+  }
 
-  // const filteredProducts = products.filter((product) =>
-  //   product.product_name.toLowerCase().includes(searchQuery.toLowerCase())
-  // );
+  // const updateCartInLocalStorage = () => {
+  //   localStorage.setItem('cart', JSON.stringify(cart));
+  // };
 
-  // Handle search query and filter products
-  // const handleSearch = (query) => {
-  //   if (query.trim() === '') {
-  //     setFilteredProducts(products);  // Show all products if search is empty
-  //   } else {
-  //     const filtered = products.filter(product =>
-  //       product.product_name.toLowerCase().includes(query.toLowerCase()) ||
-  //       product.ws_code.toLowerCase().includes(query.toLowerCase()) // Filter by name or code
-  //     );
-  //     setFilteredProducts(filtered); // Set filtered products
-  //   }
-  // }
 
 
   const handleAddToCart = (product) => {
@@ -165,12 +205,21 @@ const CustomerDashboard = () => {
             : item
         )
       );
+      // updateCartInLocalStorage();
     } else {
       setCart([...cart, { ...product, quantity: 1 }]);
+      // updateCartInLocalStorage();
     }
   };
 
+  useEffect(() => {
+    if (cart.length > 0) {
+      localStorage.setItem('cart', JSON.stringify(cart));
+    }
+  }, [cart]);
+
   const increaseQuantity = (productId) => {
+
     setCart((prevCart) =>
       prevCart.map((item) =>
         item.id === productId
@@ -194,6 +243,27 @@ const CustomerDashboard = () => {
     );
   };
 
+  // const increaseQuantity = (productId) => {
+  //   const updatedCart = [...cart];
+  //   const product = updatedCart.find((item) => item.id === productId);
+  //   if (product) {
+  //     product.quantity += 1;
+  //     setCart(updatedCart);
+  //     updateCartInLocalStorage(); // Save cart after increase
+  //   }
+  // };
+
+  // const decreaseQuantity = (productId) => {
+  //   const updatedCart = cart
+  //     .map((item) =>
+  //       item.id === productId
+  //         ? { ...item, quantity: item.quantity - 1 }
+  //         : item
+  //     )
+  //     .filter((item) => item.quantity > 0); // Remove items with quantity 0
+  //   setCart(updatedCart);
+  //   updateCartInLocalStorage(); // Save cart after decrease
+  // };
 
 
 
@@ -337,6 +407,7 @@ const CustomerDashboard = () => {
 
         // Clear the cart after placing the order
         setCart([]);
+        localStorage.removeItem('cart');
         handleCartToggle();
       }
     } catch (err) {
@@ -358,42 +429,81 @@ const CustomerDashboard = () => {
     return <div>{error}</div>;
   }
 
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  // Change page
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  // Pagination controls
+  const pageNumbers = [];
+  for (let i = 1; i <= Math.ceil(filteredProducts.length / productsPerPage); i++) {
+    pageNumbers.push(i);
+  }
+
   return (
     <>
-      {/* <Navbar cartCount={cart.length} onCartClick={handleCartToggle} searchQuery={searchQuery}
-        handleSearchQuery={handleSearchQuery} /> */}
-      <Navbar cartCount={cart.length} onCartClick={handleCartToggle}  />
+      <Navbar cartCount={cart.length} onCartClick={handleCartToggle} searchQuery={searchQuery}
+        handleSearchQuery={handleSearchQuery} />
+      {/* <Navbar cartCount={cart.length} onCartClick={handleCartToggle}  /> */}
       <div className="customer-dashboard">
         <h2>Product List</h2>
         <div className="products-container">
-          {products.map((product) => (
-            <div className="product-card" key={product.id}>
-              <img
-                // src={product.image_url || "/default-image.jpg"} // Handle missing images
-                src="../../../public/images/cat.jpg" // Handle missing images
-                alt={product.product_name}
-                className="product-image"
-              />
-              <div className="product-info">
-                <h3 className="product-name">{product.product_name}</h3>
-                <div className="product-prices">
-                  {product.mrp !== product.sales_price && (
-                    <span className="product-mrp">
-                      <s>${product.mrp}</s>
-                    </span>
-                  )}
-                  <span className="product-sales-price">${product.sales_price}</span>
-                </div>
+          {filteredProducts.length === 0 && !error ? (
+            <h2 className="no-products-message">No Products Found...</h2>
+          ) : (
 
-                {/* <p className="product-price">Price: ${product.mrp}</p> */}
+            currentProducts.map((product) => (
+              <div className="product-card" key={product.id}>
+                <LazyLoad height={200} offset={100}>
+
+                  <img
+                    src={product.images[0] || "../../../public/images/cat.jpg"} // Handle missing images
+                    // src="../../../public/images/cat.jpg" // Handle missing images
+                    alt={product.product_name}
+                    className="product-image"
+                    loading=''
+                  />
+                </LazyLoad>
+                <div className="product-info">
+                  <h3 className="product-name">{product.product_name}</h3>
+                  <div className="product-prices">
+                    {product.sales_price < product.mrp && (
+                      <span className="product-mrp">
+                        <s>₹{product.mrp}</s>
+                      </span>
+                    )}
+                    <span className="product-sales-price">₹{product.sales_price}</span>
+                  </div>
+
+                  {/* <p className="product-price">Price: ${product.mrp}</p> */}
+                </div>
+                <button
+                  className="add-to-cart-btn"
+                  onClick={() => handleAddToCart(product)}
+                >
+                  Add to Cart
+                </button>
               </div>
-              <button
-                className="add-to-cart-btn"
-                onClick={() => handleAddToCart(product)}
-              >
-                Add to Cart
-              </button>
-            </div>
+            ))
+
+          )}
+        </div>
+
+        <div className="pagination">
+          {pageNumbers.map((number) => (
+            <button
+              key={number}
+              onClick={() => paginate(number)}
+              className={currentPage === number ? 'active' : ''}
+            >
+              {number}
+            </button>
           ))}
         </div>
 
@@ -409,7 +519,7 @@ const CustomerDashboard = () => {
                     <ul>
                       {cart.map((item) => (
                         <li key={item.id} className="cart-item">
-                          <span>{item.product_name} - ${item.mrp}</span>
+                          <span>{item.product_name} - ₹{item.sales_price}</span>
                           <div className="quantity-controls">
                             <button onClick={() => decreaseQuantity(item.id)} className=''>-</button>
                             <span>{item.quantity}</span>
@@ -420,7 +530,7 @@ const CustomerDashboard = () => {
                     </ul>
                     <p>Total Items: {cart.reduce((acc, item) => acc + item.quantity, 0)}</p>
                     {/* <p>Total Price: ${cart.reduce((acc, item) => acc + item.mrp * item.quantity, 0)}</p> */}
-                    <p>Total Price: ${cart.reduce((acc, item) => acc + item.sales_price * item.quantity, 0)}</p>
+                    <p>Total Price: ₹{cart.reduce((acc, item) => acc + item.sales_price * item.quantity, 0)}</p>
 
 
                     <div className="cart-actions">

@@ -96,101 +96,127 @@ h2 {
   background-color: #45a049;
 }
   */
-  .products-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 20px;
-    justify-items: center;
-    /* Center the cards */
-  }
+.products-container {
+  display: grid;
+  /* grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); */
+  grid-template-columns: repeat(5, 1fr);
+
+  gap: 20px;
+  justify-items: center;
+  padding: 10px;
+  /* Center the cards */
+}
+
+.no-products-message {
+  text-align: center;
+  font-size: 1.5rem;
+  color: #777;
+  margin-top: 20px;
+}
+
+
+.product-card {
+  background-color: #fff;
+  padding: 2px;
+  border-radius: 0px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  width: 100%;
+  max-width: 300px;
+  /* Fixed max-width for card */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  padding: 10px;
+  border: 1px solid #ddd;  /* Border around the card */
+  border-radius: 8px;
+}
+
+.product-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.product-image {
+  /* width: 100%; */
+  width: 100%;
+  height: 150px;
+  /* Reduced image size */
+  object-fit: contain;
+
+  margin-bottom: 0px;
+  max-width: 180px;
   
-  .product-card {
-    background-color: #fff;
-    padding: 2px;
-    border-radius: 5px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    transition: transform 0.2s ease, box-shadow 0.3s ease;
-    width: 100%;
-    max-width: 300px;
-    /* Fixed max-width for card */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .product-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-  }
-  
-  .product-image {
-    /* width: 100%; */
-    width: 100%;
-    height: 150px;
-    /* Reduced image size */
-    object-fit: cover;
-    border-radius: 10px;
-    margin-bottom: 10px;
-  }
-  
-  .product-info {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    /* padding-bottom: -20px; */
-    margin-bottom: 0px;
-  }
-  
-  .product-name {
-    font-size: 18px; /* Larger font size for product name */
-    color: #333;
-    font-weight: bold;
-    flex: 3; /* Allow the name to take more space */
-    text-align: left; /* Align the product name to the left */
-    padding-left: 10px;
-  }
-  
-  .product-prices {
-    display: flex;
-    flex-direction: row; /* Keep prices in a row */
-    align-items: center;
-    gap: 10px; /* Space between MRP and sales price */
-    justify-content: flex-end; /* Align prices to the right */
-    padding-right: 10px;
-  }
-  
-  .product-mrp {
-    font-size: 14px;
-    color: #888;
-    text-decoration: line-through;
-  }
-  
-  .product-sales-price {
-    font-size: 16px;
-    color: #e63946;
-    font-weight: bold;
-  }
-  
-  .add-to-cart-btn {
-    background-color: #4caf50;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    font-size: 16px;
-    width: 100%;
-    margin-top: 0px;
-  }
-  
-  .add-to-cart-btn:hover {
-    background-color: #45a049;
-  }
-  
+  max-height: 180px;
+
+}
+
+.product-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  /* padding-bottom: -20px; */
+  margin-bottom: 0px;
+}
+
+.product-name {
+  font-size: 14px;
+  /* Larger font size for product name */
+  color: #333;
+  font-weight: bold;
+  flex: 3;
+  /* Allow the name to take more space */
+  text-align: left;
+  /* Align the product name to the left */
+  padding-left: 10px;
+}
+
+.product-prices {
+  display: flex;
+  flex-direction: row;
+  /* Keep prices in a row */
+  align-items: center;
+  gap: 10px;
+  /* Space between MRP and sales price */
+  justify-content: flex-end;
+  /* Align prices to the right */
+  padding-right: 10px;
+}
+
+.product-mrp {
+  font-size: 14px;
+  color: #888;
+  text-decoration: line-through;
+}
+
+.product-sales-price {
+  font-size: 16px;
+  color: #e63946;
+  font-weight: bold;
+}
+
+.add-to-cart-btn {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 16px;
+  width: 100%;
+  margin-top: 0px;
+}
+
+.add-to-cart-btn:hover {
+  background-color: #45a049;
+}
+
 
 .cart-summary {
   background-color: #fff;
@@ -345,6 +371,7 @@ h2 {
 .cart-item:last-child {
   border-bottom: none;
 }
+
 /* 
 .quantity-controls {
   display: flex;
@@ -397,39 +424,39 @@ h2 {
 } */
 
 .quantity-controls {
-  display: flex; 
-  align-items: center; 
+  display: flex;
+  align-items: center;
   gap: 10px;
 }
 
 .quantity-controls button {
-  background-color:#28a745; 
+  background-color: #28a745;
   color: white;
-  border: none; 
-  border-radius: 4px; 
+  border: none;
+  border-radius: 4px;
   width: 30px;
-  height: 30px; 
-  font-size: 1.2rem; 
-  display: flex; 
-  justify-content: center; 
-  align-items: center; 
-  cursor: pointer; 
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); 
+  height: 30px;
+  font-size: 1.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .quantity-controls button:hover {
-  background-color: #0056b3; 
+  background-color: #0056b3;
 }
 
 .quantity-controls span {
-  font-size: 1.2rem; 
-  font-weight: bold; 
+  font-size: 1.2rem;
+  font-weight: bold;
   color: #333;
   min-width: 30px;
-  text-align: center; 
-  display: inline-flex; 
-  justify-content: center; 
-  align-items: center; 
+  text-align: center;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
 }
 
 
@@ -467,7 +494,7 @@ h2 {
   flex: 1;
   /* Make buttons equal in size */
   text-align: center;
-  
+
 }
 
 .place-order-btn:hover {
@@ -480,4 +507,28 @@ h2 {
 
 .close-btn:hover {
   background-color: #218838;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  margin: 0 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.pagination button.active {
+  background-color: #007bff;
+  color: white;
+}
+
+.pagination button:hover {
+  background-color: #ddd;
 }

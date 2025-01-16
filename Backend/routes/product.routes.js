@@ -16,7 +16,7 @@ const {
 // Public Routes
 router.get('/', authenticate, getAllProducts);
 router.get('/:id', authenticate, getProductById);
-router.get('/search', authenticate, searchProducts);
+router.get('/products/search', authenticate, searchProducts);
 
 // Admin-Only Routes
 router.post('/create', authenticate, authorize(["Admin"]), createProduct);

@@ -4,6 +4,9 @@ import "../style/ManageUsers.css"; // Importing the CSS for this page
 
 const ManageUsers = () => {
   const [users, setUsers] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const productsPerPage = 10;
+
 
   // Fetching users from the backend
   useEffect(() => {
@@ -25,7 +28,7 @@ const ManageUsers = () => {
   const handleDelete = async (userId) => {
     const isConfirmed = window.confirm('Are you sure you want to delete this user?');
 
-    if(isConfirmed){
+    if (isConfirmed) {
 
       try {
         await axios.delete(`http://localhost:5000/users/${userId}`, {
@@ -37,6 +40,12 @@ const ManageUsers = () => {
       }
     }
   };
+
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentUsers = users.slice(indexOfFirstProduct, indexOfLastProduct);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
     <div className="manage-users">
@@ -52,7 +61,7 @@ const ManageUsers = () => {
           </tr>
         </thead>
         <tbody>
-          {users.map((user) => (
+          {currentUsers.map((user) => (
             <tr key={user.id}>
               <td>{user.id}</td>
               <td>{user.name}</td>
@@ -70,6 +79,18 @@ const ManageUsers = () => {
           ))}
         </tbody>
       </table>
+
+      <div className="pagination">
+        {Array.from({ length: Math.ceil(users.length / productsPerPage) }).map((_, index) => (
+          <button
+            key={index + 1}
+            onClick={() => paginate(index + 1)}
+            className={currentPage === index + 1 ? 'active' : ''}
+          >
+            {index + 1}
+          </button>
+        ))}
+      </div>
     </div>
   );
 };

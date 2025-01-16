@@ -19,7 +19,8 @@
     border: 1px solid #ddd;
 }
 
-.orders-page table th, .orders-page table td {
+.orders-page table th,
+.orders-page table td {
     padding: 12px 15px;
     text-align: left;
     border-bottom: 1px solid #ddd;
@@ -56,7 +57,32 @@
         font-size: 14px;
     }
 
-    .orders-page table th, .orders-page table td {
+    .orders-page table th,
+    .orders-page table td {
         padding: 8px 10px;
     }
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination button {
+    margin: 0 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.pagination button.active {
+    background-color: #007bff;
+    color: white;
+}
+
+.pagination button:hover {
+    background-color: #94b7eb;
 }

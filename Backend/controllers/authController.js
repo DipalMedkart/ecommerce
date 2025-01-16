@@ -130,6 +130,7 @@ const login = async (req, res) => {
         id: user.id,
         email: user.email,
         role: user.role,
+        name : user.name,
       },
     });
   } catch (err) {

@@ -34,4 +34,33 @@ const deleteUser = async (req, res) => {
   }
 };
 
-module.exports = { getAllUsers, deleteUser };
+// get the number of total users
+const getUsersCount = async(req, res) => {
+  try {
+    const result = await pool.query("SELECT COUNT(*) AS count FROM users");
+    res.json({ count: result.rows[0].count });
+  } catch (error) {
+    console.error("Error fetching user count:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+}
+const getOrdersCount = async(req, res) => {
+  try {
+    const result = await pool.query("SELECT COUNT(*) AS count FROM orders");
+    res.json({ count: result.rows[0].count });
+  } catch (error) {
+    console.error("Error fetching user count:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+}
+
+const pendingOrders = async (req, res) => {
+  try {
+    const result = await pool.query("SELECT COUNT(*) AS count FROM orders WHERE status = $1", ['Pending']);
+    res.json({ count: result.rows[0].count });
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching pending orders" });
+  }
+}
+
+module.exports = { getAllUsers, deleteUser, getUsersCount, pendingOrders, getOrdersCount};
