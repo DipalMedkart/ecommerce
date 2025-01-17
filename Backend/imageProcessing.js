@@ -7,7 +7,7 @@ cloudinary.config({
   });
 
 
-  cloudinary.uploader.upload('C:\\E-commerce\\images\\.jpg', {
+  cloudinary.uploader.upload('C:\\E-commerce\\images\\slide-7.jpg', {
     folder: 'products',  // Store image in the "products" folder
   }).then(result => {   
     console.log('Image uploaded:', result.secure_url);

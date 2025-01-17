@@ -5,6 +5,8 @@ import '../style/CustomerDeshboard2.css';
 import Navbar from '../../component/Navbar';
 import AdminNavbar from '../../component/AdminNavbar';
 import LazyLoad from "react-lazyload"
+import Slider from '../../component/Slider';
+import Slider2 from '../../component/Slider2';
 
 
 const CustomerDashboard = () => {
@@ -221,7 +223,7 @@ const CustomerDashboard = () => {
   const increaseQuantity = (productId) => {
 
     setCart((prevCart) =>
-      prevCart.map((item) =>
+      prevCart.map((item) => 
         item.id === productId
           ? { ...item, quantity: item.quantity + 1 }
           : item
@@ -232,14 +234,18 @@ const CustomerDashboard = () => {
 
   // Decrease quantity
   const decreaseQuantity = (productId) => {
-    setCart((prevCart) =>
-      prevCart
+    setCart((prevCart) => {
+      const updatedCart = prevCart
         .map((item) =>
           item.id === productId
             ? { ...item, quantity: item.quantity - 1 }
             : item
         )
-        .filter((item) => item.quantity > 0) // Remove items with quantity 0
+        .filter((item) => item.quantity > 0); // Remove items with quantity 0
+
+      localStorage.setItem('cart', JSON.stringify(updatedCart)); // Update localStorage
+      return updatedCart;
+    }
     );
   };
 
@@ -394,7 +400,7 @@ const CustomerDashboard = () => {
         user_id: user_id,
         items: orderItems,
         bill_amount: billAmount,
-        status: 'Pending', // Adjust order status as needed
+        status: 'Pending',
       }, {
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -402,7 +408,7 @@ const CustomerDashboard = () => {
       });
 
       if (response.status === 201) {
-        // Step 7: Handle successful order placement
+
         alert("Your order has been placed successfully!");
 
         // Clear the cart after placing the order
@@ -437,10 +443,10 @@ const CustomerDashboard = () => {
     setCurrentPage(pageNumber);
   };
 
-  // Change page
+
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  // Pagination controls
+
   const pageNumbers = [];
   for (let i = 1; i <= Math.ceil(filteredProducts.length / productsPerPage); i++) {
     pageNumbers.push(i);
@@ -448,10 +454,12 @@ const CustomerDashboard = () => {
 
   return (
     <>
+
       <Navbar cartCount={cart.length} onCartClick={handleCartToggle} searchQuery={searchQuery}
         handleSearchQuery={handleSearchQuery} />
       {/* <Navbar cartCount={cart.length} onCartClick={handleCartToggle}  /> */}
       <div className="customer-dashboard">
+        <Slider />
         <h2>Product List</h2>
         <div className="products-container">
           {filteredProducts.length === 0 && !error ? (
@@ -463,7 +471,7 @@ const CustomerDashboard = () => {
                 <LazyLoad height={200} offset={100}>
 
                   <img
-                    src={product.images[0] || "../../../public/images/cat.jpg"} // Handle missing images
+                    src={product.images[0] || "../../../public/images/cat.jpg"}
                     // src="../../../public/images/cat.jpg" // Handle missing images
                     alt={product.product_name}
                     className="product-image"

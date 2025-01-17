@@ -1,0 +1,24 @@
+/* Slider.css */
+
+.slider-container {
+    width: 100%;
+    max-width: 100%;
+    height: 400px; /* Max height of the slider */
+    position: relative;
+    overflow: hidden; /* Hide overflowing content */
+    background-color: rgb(217, 175, 97);
+  }
+  
+  .slider {
+    display: flex;
+    transition: transform 1s ease-in-out; /* Sliding transition */
+    width: 300%; /* Width of the slider should be 3x the width of the container */
+  }
+  
+  .slider-image {
+    width: 100%; /* Ensure each image takes up 100% of the container width */
+    height: 380px; /* Fixed height of the slider */
+    object-fit: contain; /* Ensure images maintain aspect ratio and fill the container */
+    margin: 10px 0;
+  }
+  

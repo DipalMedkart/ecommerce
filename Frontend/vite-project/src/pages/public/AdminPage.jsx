@@ -84,7 +84,7 @@ const AdminPage = () => {
         <section className="admin-navigation">
           <nav>
             <ul>
-              <li onClick={() => navigate("/admin-deshboard/manage-users") }>
+              <li onClick={() => navigate("/admin-dashboard/manage-users") }>
                 User Management
               </li>
               <li onClick={() => alert("Navigating to Reports")}>Reports</li>

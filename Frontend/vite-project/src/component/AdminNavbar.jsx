@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import "../pages/style/AdminNavbar.css";
 // import AddProduct from "../pages/product-operation/AddProduct";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 const AdminNavbar = ({ onNavigate }) => {
   const [showAddProduct, setShowAddProduct] = useState(false);
-
+  const {logout} = useContext(AuthContext);
   const navigate = useNavigate();
   const handleAddProductClick = () => {
     // setShowAddProduct(true);
@@ -19,8 +20,10 @@ const AdminNavbar = ({ onNavigate }) => {
   const handleLogout = () => {
     
 
-    localStorage.removeItem("token");
+    // localStorage.removeItem("token");
+    // localStorage.removeItem("userRole");
     // localStorage.removeItem("role");
+    logout();
   
     
     window.location.href = "/login";
@@ -42,10 +45,10 @@ const AdminNavbar = ({ onNavigate }) => {
           </li> */}
           {/* <li onClick={() => onNavigate("deleteProduct")}>Delete Product</li> */}
           
-          <li onClick={() => navigate("/admin-deshboard/add-product")}>Add Product</li>
-          <li onClick={() => navigate("/admin-deshboard/product-details")}>Product Details</li>
-          <li onClick={() => navigate("/admin-deshboard/manage-users")}>Manage Users</li>
-          <li onClick={() => navigate("/admin-deshboard/manage-orders")}>Manage Orders</li>
+          <li onClick={() => navigate("/admin-dashboard/add-product")}>Add Product</li>
+          <li onClick={() => navigate("/admin-dashboard/product-details")}>Product Details</li>
+          <li onClick={() => navigate("/admin-dashboard/manage-users")}>Manage Users</li>
+          <li onClick={() => navigate("/admin-dashboard/manage-orders")}>Manage Orders</li>
           {/* <li onClick={() => onNavigate("updateProduct")}>Update Product</li> */}
           {/* <li onClick={() => onNavigate("viewOrders")}>View Orders</li> */}
           <li onClick={() => onNavigate("manageInventory")}>

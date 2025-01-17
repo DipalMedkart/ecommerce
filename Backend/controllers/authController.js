@@ -54,17 +54,18 @@ const signup = async (req, res) => {
   }
 
   try {
-    // Check if the email is already in use
+
+    // Check if the email is already in use 
     const existingUser = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
     if (existingUser.rows.length > 0) {
       return res.status(400).json({ message: 'Email is already registered.' });
     }
 
-    // Validate and assign role
+    // Valid roles are here 
     const validRoles = ['Customer', 'Admin'];
     const userRole = role && validRoles.includes(role) ? role : 'Customer';
 
-    // Hash the password
+    // Hashing password for security 😁
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Save the user to the database
@@ -116,7 +117,7 @@ const login = async (req, res) => {
     }
 
     // console.log('User:', user);
-    // Generate a JWT token
+    // Generating JWT token here(for Knowlwdge only)
     const token = jwt.sign(
       { id: user.id, email: user.email, role: user.role || 'Customer' },
       process.env.JWT_SECRET,

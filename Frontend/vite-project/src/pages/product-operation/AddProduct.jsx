@@ -277,6 +277,7 @@ const AddProduct = ({ onClose }) => {
             name="ws_code"
             value={productData.ws_code}
             onChange={handleChange}
+            required
           />
         </div>
 
@@ -345,7 +346,7 @@ const AddProduct = ({ onClose }) => {
 
         <div className="form-actions">
           <button type="submit">Add Product</button>
-          <button type="button" onClick={() => navigate("/admin-deshboard")}>
+          <button type="button" onClick={() => navigate("/admin-dashboard")}>
             Cancel
           </button>
         </div>

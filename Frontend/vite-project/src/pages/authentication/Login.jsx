@@ -2,12 +2,16 @@ import React, { useState } from "react";
 import "../style/Login.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { AuthContext } from "../../context/AuthContext";
+import { useContext } from "react";
+
 
 const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const {login} = useContext(AuthContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,15 +29,20 @@ const Login = () => {
 
       const token = response.data.token;
       const role = response.data.user.role;
+      console.log(role);
+      login(token,role);
 
       // Store token in localstore for future use
-      localStorage.setItem("token", token);
+      // localStorage.setItem("token", token);
+      // localStorage.setItem("userRole", role);
+      // setUserRole(role);
+      // setIsAuthenticated(true);
 
-      // navigating to dashboard after login sucessfull depend on role
+     
       if (role === "Admin") {
-        navigate("/admin-deshboard");
+        navigate("/admin-dashboard");
       } else {
-        navigate("/customer-deshboard");
+        navigate("/customer-dashboard");
       }
     } catch (error) {
       // Handle error response here
